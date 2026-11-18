@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PSYCHOSIS — Sector 09 3D</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+body{overflow:hidden;background:#030807}.site-header{height:64px}
+#world3d{width:100%;height:calc(100vh - 64px);display:block;touch-action:none}
+.hud3d{position:fixed;z-index:8;top:78px;left:16px;width:280px;padding:13px 15px;background:#06100edb;border:1px solid #65f7d566;backdrop-filter:blur(7px);pointer-events:none}
+.hud3d h1{font:800 .95rem Orbitron,sans-serif;color:#eafffa;letter-spacing:.1em;margin:0 0 7px}.hud3d p{font-size:.77rem;color:#b4c9c2;margin:3px 0}
+.controls3d{position:fixed;z-index:8;top:78px;right:16px;width:285px;padding:13px 15px;background:#06100edb;border:1px solid #65f7d566;backdrop-filter:blur(7px)}
+.controls3d h2{font:700 .72rem Orbitron;color:#65f7d5;letter-spacing:.1em}.controls3d p{font-size:.76rem;color:#d1e0da;margin:5px 0}.controls3d kbd{background:#18352e;color:#caffef;border:1px solid #4b7c6d}
+#loading3d{position:fixed;inset:64px 0 0;z-index:12;display:grid;place-items:center;background:#030807;color:#65f7d5;font:700 1rem Orbitron;letter-spacing:.15em}
+#loading3d.hidden3d{display:none}.bottom3d{position:fixed;z-index:8;left:16px;bottom:15px;color:#d0e1db;background:#06100edb;padding:9px 13px;border:1px solid #65f7d544;font:600 .65rem Orbitron;letter-spacing:.06em}
+#sound3d{position:fixed;right:16px;bottom:15px;z-index:9}
+#world3d.aiming3d{cursor:crosshair}
+#pauseMenu3d{display:none;position:fixed;inset:64px 0 0;z-index:20;background:rgba(1,5,4,.84);backdrop-filter:blur(8px);align-items:center;justify-content:center}
+#pauseMenu3d.show{display:flex}
+.pause-card{width:min(420px,calc(100% - 32px));padding:30px;background:#071411;border:1px solid #65f7d5;box-shadow:0 0 35px #00e8b433;text-align:center}
+.pause-card h2{font:800 1.7rem Orbitron,sans-serif;color:#65f7d5;letter-spacing:.12em;margin-bottom:22px}
+.pause-card .btn{width:100%;margin:6px 0;padding:11px;font-weight:700;letter-spacing:.08em}
+@media(max-width:720px){.hud3d{top:72px;left:8px;width:180px;padding:9px}.hud3d p{font-size:.66rem}.controls3d{top:auto;bottom:54px;right:8px;width:190px;padding:9px}.controls3d p{font-size:.65rem}.bottom3d{left:8px;bottom:10px;font-size:.52rem}.site-header .header-status{display:none}#sound3d{right:8px;bottom:205px}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="container-fluid d-flex align-items-center justify-content-between">
+<a class="brand" href="index.html"><img src="assets/favicon.svg" class="brand-icon" alt=""><span>PSYCHOSIS</span></a>
+<div class="header-status"><span class="pulse"></span> EXPERIENCIA 3D // SECTOR 09</div>
+<a href="index.html" class="btn btn-outline-light btn-sm">← MENÚ PRINCIPAL</a>
+</div></header>
+<main>
+<canvas id="world3d" aria-label="Escenario 3D de PSYCHOSIS"></canvas>
+<div id="loading3d">CONSTRUYENDO SECTOR 09...</div>
+<section class="hud3d"><h1>SECTOR 09 / SUPERVIVENCIA</h1><p>ESTADO: <b id="state3d">LISTO</b></p><p>ACCIÓN: <b id="action3d">CAMINAR</b></p><p>OBJETIVO: Explora el hospital y sobrevive.</p></section>
+<section class="controls3d"><h2>CONTROLES</h2>
+<p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / Flechas: mover</p>
+<p><kbd>1</kbd> Caminar · <kbd>2</kbd> Correr · <kbd>3</kbd> Apuntar (mira con ratón)</p>
+<p><kbd>Q</kbd> / <kbd>E</kbd>: girar 90°</p>
+<p><kbd>Espacio</kbd>: saltar · <kbd>F</kbd> / clic: disparar</p>
+<p><kbd>Shift</kbd>: correr temporalmente · <kbd>Esc</kbd>: pausa</p>
+<p>Ratón: cámara · En modo apuntar: dirigir mira · Rueda: zoom</p></section>
+<div class="bottom3d">PASILLO HOSPITALARIO · ARMAMENTO M9 · SONIDO AMBIENTAL</div>
+<button id="sound3d" class="btn btn-outline-light btn-sm">♫ SONIDO: ACTIVADO</button>
+<div id="pauseMenu3d" role="dialog" aria-modal="true" aria-label="Menú de pausa">
+ <div class="pause-card">
+  <h2>JUEGO EN PAUSA</h2>
+  <button id="resume3d" class="btn btn-success">CONTINUAR</button>
+  <button id="restart3d" class="btn btn-outline-light">REINICIAR PARTIDA</button>
+  <button id="menu3d" class="btn btn-outline-danger">VOLVER AL MENÚ PRINCIPAL</button>
+  <p class="text-secondary small mt-3 mb-0">Presiona ESC para continuar o pausar.</p>
+ </div>
+</div>
+</main>
+<audio id="ambience3d" src="assets/ambience.wav" loop preload="auto"></audio>
+<audio id="shot3d" src="assets/shot.wav" preload="auto"></audio>
+<script type="importmap">
+{"imports":{"three":"./vendor/three/three.module.js","three/addons/":"./vendor/three/addons/"}}
+</script>
+<script type="module" src="scene3d.js"></script>
+</body></html>
